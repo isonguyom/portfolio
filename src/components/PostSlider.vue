@@ -3,9 +3,9 @@
         <div class="d-flex custom-slider" ref="slider" :style="sliderStyle">
             <div v-for="(slide, index) in posts" :key="index" class="custom-slide position-relative rounded-2">
                 <div>
-                    <img :src="`/images/${slide.poster}-sm.png`" alt="poster"
+                    <img :src="`images/${slide.poster}-sm.png`" alt="poster"
                         class="card-img w-100 rounded-2 d-md-none" />
-                    <img :src="`/images/${slide.poster}-lg.png`" alt="poster"
+                    <img :src="`images/${slide.poster}-lg.png`" alt="poster"
                         class="card-img w-100 rounded-2 d-none d-md-block" />
                 </div>
                 <div

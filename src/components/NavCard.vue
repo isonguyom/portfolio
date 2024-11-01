@@ -1,7 +1,7 @@
 <template>
     <li class="nav-item col">
         <div class="card h-100 bg-white bg-opacity-50 text-white p-2 rounded border-0 shadow-sm w-100">
-            <img :src="`/images/${props.navItem.name}.svg`" class="card-img h-100 rounded" alt="poster">
+            <img :src="`images/${props.navItem.name}.svg`" class="card-img h-100 rounded" alt="poster">
             <button class="btn w-100 h-100 card-img-overlay text-white font-title fs-5 text-capitalize fw-semibold"
                 @click="$emit('changeView', props.navItem.name)">
                 {{ props.navItem.name }}

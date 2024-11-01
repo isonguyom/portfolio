@@ -4,7 +4,7 @@
             @touchstart="startDrag" @mouseup="endDrag" @touchend="endDrag" @mousemove="onDrag" @touchmove="onDrag">
             <div class="slide py-2 px-1 d-flex justify-content-center align-items-center rounded-3" :title="image.name"
                 v-for="(image, index) in visibleSlides" :key="index">
-                <img :src="`/images/${image.logo}.svg`" :alt="image.name" :title="image.name" />
+                <img :src="`images/${image.logo}.svg`" :alt="image.name" :title="image.name" />
             </div>
         </div>
     </div>
