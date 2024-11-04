@@ -1,8 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <Wrapper :activeView="view === 'home'">
-        <div class="min-vh-100 py-5 px-3 px-sm-5 row justify-content-between align-items-center w-100">
-            <div class="col-12 col-lg-4">
+        <div
+            class="min-vh-100 py-5 px-3 px-sm-5 row m-0 justify-content-between align-items-center w-100">
+            <div class="col-12 col-lg-4 p-0">
                 <div>
                     <h3 class="fs-1 text-white">Hey!</h3>
                     <h1 class="text-uppercase fw-bold text-main name">I'm Martin</h1>
@@ -14,11 +15,11 @@
                             class="card-link fs-5 d-inline-flex justify-content-center align-items-center border rounded-circle p-2"><i
                                 :class="link.icon"></i></a>
                     </div>
-                    <Button label="Hire me"  @click="$emit('changeView', 'contact')"/>
+                    <Button label="Hire me" @click="$emit('changeView', 'contact')" />
                 </div>
             </div>
-            <div class="col-12 col-lg-8 mt-5 mt-lg-0 ps-lg-5">
-                <ul class="w-100 nav row row-cols-1 row-cols-sm-2 g-4">
+            <div class="col-12 col-lg-8 mt-5 mt-lg-0 p-0 ps-lg-5">
+                <ul class="w-100 nav row row-cols-1 row-cols-sm-2 row-gap-4 m-0 p-0">
                     <NavCard v-for="(item, index) in navCards" :key="index" :navItem="item" @changeView="changeView" />
                 </ul>
             </div>

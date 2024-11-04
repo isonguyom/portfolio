@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 overflow-x-hidden position-relative">
+    <div class="w-100 overflow-x-hidden position-relative m-0 p-0">
         <div class="d-flex custom-slider" ref="slider" :style="sliderStyle">
             <div v-for="(slide, index) in posts" :key="index" class="custom-slide position-relative rounded-2">
                 <div>
@@ -140,7 +140,7 @@ const previousSlide = () => {
 }
 
 .custom-slide .slide-overlay:hover {
-    background-color: rgba(0, 0, 0, 0.534);
+    background-color: rgba(0, 0, 0, 0.555);
 }
 
 .text-box {

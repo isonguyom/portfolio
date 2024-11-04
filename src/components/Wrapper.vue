@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <main ref="mainWrapper" class="min-vh-100 w-100" :class="{ 'd-block': activeView, 'd-none': !activeView }">
+    <main ref="mainWrapper" class="min-vh-100 w-100 container-fluid p-0"
+        :class="{ 'd-block': activeView, 'd-none': !activeView }">
         <slot></slot>
     </main>
 </template>
@@ -19,8 +20,7 @@ onMounted(() => {
     // Initial GSAP animation setup if needed
     gsap.from(mainWrapper.value, {
         duration: 2,
-        rotationX: 45,
-        scaleX: 0.7,
+        translateX: -100,
         opacity: 0,
         z: -300,
         ease: "power3.out"
@@ -36,8 +36,7 @@ watch(
             // Animate the container in
             gsap.from(mainWrapper.value, {
                 duration: 2,
-                rotationX: 45,
-                scaleX: 0.5,
+                translateX: -100,
                 opacity: 0,
                 z: -300,
                 ease: "power3.out"

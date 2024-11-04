@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <button :type="type" class="btn btn-main fw-bold fs-5 p-0 d-flex align-items-center justify-content-center"
+    <button :type="type" :aria-label="ariaLabel" class="btn btn-main fw-bold fs-5 p-0 d-flex align-items-center justify-content-center"
         role="button"><span class="py-2 ps-4 pe-2">{{ label }}</span> <span class="btn-icon py-2 px-4 fs-4 fw-bolder"><i
                 class="bi bi-arrow-right"></i></span></button>
 </template>
@@ -16,6 +16,11 @@ const props = defineProps({
     label: {
         type: String,
         required: true
+    }, 
+
+    ariaLabel: {
+        type: String,
+        default: "Button"
     }
 })
 </script>

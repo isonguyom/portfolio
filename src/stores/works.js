@@ -39,7 +39,7 @@ export const useWorksStore = defineStore("works", () => {
       title: "JavaScript Quiz app",
       image: "quiz-app",
       link: "https://isonguyom.github.io/quizAppJs",
-      categories: "web dev",
+      categories: "web app",
       tools: "JavaScript",
       desc: "A simple JavaScript quiz application",
     },

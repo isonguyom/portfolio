@@ -48,14 +48,14 @@ h6 {
 }
 
 *:focus {
-  outline: 1px solid goldenrod;
+  outline: 1px solid gold;
   outline-offset: 3px;
 }
 
 
 @media screen and (min-width: 1024px) {
- body {
-      max-height: 100vh;
-      overflow: hidden;
+  body {
+    max-height: 100vh;
+    overflow: hidden;
   }
 }

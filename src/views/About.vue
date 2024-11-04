@@ -2,8 +2,8 @@
 <template>
   <Wrapper :activeView="view === 'about'">
     <div class="min-vh-100 pb-5 pt-lg-5 px-3 px-sm-5 position-relative w-100 about-wrapper">
-      <div class="row justify-content-lg-between row-cols-1 row-cols-lg-2 g-4 mb-5">
-        <div class="col mt-lg-0">
+      <div class="row justify-content-lg-between row-cols-1 row-cols-lg-2 g-4 m-0 mb-5 p-0">
+        <div class="col m-0 p-0 mb-4 mb-lg-0">
           <h6 class="text-capitalize mb-3 section-caption">About me</h6>
           <div class="card w-100 border-0 bg-transparent">
             <div class="w-100">
@@ -26,12 +26,13 @@
           </div>
         </div>
 
-        <div class="col skills-wrapper ps-lg-4">
+        <div class="col skills-wrapper p-0 m-0 ps-lg-4">
           <h6 class="text-capitalize mb-3 section-caption">knowledge Areas</h6>
           <SkillsSlider />
         </div>
 
       </div>
+
       <div class="tools-wrapper w-100 px-lg-5">
         <h6 class="text-capitalize mb-3 section-caption">Tools/Tech</h6>
         <ToolsCarousel />
@@ -71,6 +72,7 @@ const props = defineProps({
   .about-wrapper {
     padding-top: 0;
     overflow: hidden;
+    max-height: 100vh;
   }
 
   .skills-wrapper {

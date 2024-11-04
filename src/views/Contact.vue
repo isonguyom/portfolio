@@ -1,58 +1,59 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <Wrapper :activeView="view === 'contact'">
-    <div
-      class="min-vh-100 py-5 px-3 px-sm-5 row row-cols-1 row-cols-lg-2 justify-content-between align-items-center w-100">
-      <div class="mb-4 pe-lg-4">
-        <h1 class="fs-1 fw-bold title mb-2">Contact Me</h1>
-        <p>I’m always open to new opportunities and collaborations, especially where tech meets the maritime industry.
+    <div class="min-vh-100 py-5 px-3 px-sm-5 row justify-content-between w-100 m-0">
+      <div class="mb-5 p-0 col-lg-4">
+        <iframe class="rounded-circle"
+          src="https://lottie.host/embed/184c2758-4b91-4cb7-b793-d7949d7d1513/Lrc73ijiPs.json"></iframe>
+        <h1 class="fs-1 fw-bold title mb-2 mt-4">Contact Me</h1>
+        <p class="m-0">
+          I’m always open to new opportunities and collaborations, especially where tech meets the maritime industry.
           If you're interested in working together or have a project in mind, don’t hesitate to reach out. Let’s create
-          something amazing!</p>
+          something amazing!
+        </p>
       </div>
-      <div>
+      <div class="p-0 col-lg-7">
         <form @submit.prevent="submitForm">
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" v-model="formData.name" required class="input-style">
+            <input type="text" id="name" v-model="formData.name" required class="input-style" aria-label="Your Name">
           </div>
 
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" v-model="formData.email" required>
+            <input type="email" id="email" v-model="formData.email" required aria-label="Your Email">
           </div>
 
           <div class="form-group">
-            <label for="email">Subject:</label>
-            <input type="text" id="subject" v-model="formData.subject" required>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" v-model="formData.subject" required aria-label="Subject of Your Message">
           </div>
 
           <div class="form-group">
             <label for="message">Message:</label>
-            <textarea id="message" rows="4" v-model="formData.message" required></textarea>
+            <textarea id="message" rows="4" v-model="formData.message" required aria-label="Your Message"></textarea>
           </div>
 
           <div class="d-flex justify-content-end">
-
-            <Button label="Submit" type="submit" />
+            <Button label="Submit" type="submit" ariaLabel="Submit Form" />
           </div>
         </form>
       </div>
-
     </div>
   </Wrapper>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import emailjs from 'emailjs-com';
+
 import Wrapper from '@/components/Wrapper.vue';
 import Button from '@/components/Button.vue';
-
-
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   view: String
-})
+});
 
 const formData = ref({
   name: '',
@@ -61,14 +62,36 @@ const formData = ref({
   message: ''
 });
 
+
 const submitForm = () => {
-  // Here you can implement the logic to submit the form data
-  console.log('Form submitted:', formData.value);
-  // Reset form fields after submission
-  formData.value.name = '';
-  formData.value.email = '';
-  formData.value.message = '';
+  const { name, email, subject, message } = formData.value;
+  console.log(import.meta.env.VITE_SERVICE_ID, import.meta.env.VITE_TEMPLATE_ID, import.meta.env.VITE_USER_ID);
+
+  emailjs
+    .send(
+      import.meta.env.VITE_SERVICE_ID,
+      import.meta.env.VITE_TEMPLATE_ID,
+      {
+        from_name: name,
+        from_email: email,
+        subject,
+        message,
+      },
+      import.meta.env.VITE_USER_ID
+    )
+    .then(
+      () => {
+        console.log('Message sent successfully!');
+        alert('Message sent successfully!');
+        formData.value = { name: '', email: '', subject: '', message: '' };
+      },
+      (error) => {
+        console.error('Failed to send message:', error);
+        alert('There was an error sending your message. Please try again.');
+      }
+    );
 };
+
 
 </script>
 
@@ -83,10 +106,11 @@ textarea {
   width: 100%;
   padding: 10px;
   font-size: 16px;
+  color: var(--input-color, #ced4da);
   border: none;
-  border-bottom: 1px solid #495057;
+  border-bottom: 1px solid var(--input-border, #495057);
   border-radius: 5px;
-  background-color: #00000023;
+  background-color: var(--input-background, #00000023);
   margin-top: 5px;
   transition: all 1s ease;
 }
@@ -96,16 +120,17 @@ textarea:hover {
   border-bottom: 1px solid var(--main);
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
+input:focus,
+textarea:focus {
+  background-color: rgba(0, 0, 0, 0.308);
 }
 
+
 .title {
-  color: var(--main)
+  color: var(--main);
+}
+
+iframe {
+  background-color: rgba(255, 255, 255, 0.075);
 }
 </style>

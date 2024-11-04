@@ -47,23 +47,12 @@ watch(
         }
     }
 );
-
-
-// onMounted(() => {
-//     startCarousel();
-
-// })
-
-// onBeforeUnmount(() => {
-//     clearInterval(carouselInterval.value);
-// });
 </script>
 
 <style scoped>
 .d-flex {
     gap: 30px;
 }
-
 
 
 .skill-name {

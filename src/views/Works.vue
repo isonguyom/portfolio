@@ -9,7 +9,6 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue'
 import Wrapper from '@/components/Wrapper.vue';
 import WorkCarousel from '@/components/WorkCarousel.vue';
 
@@ -18,12 +17,5 @@ import WorkCarousel from '@/components/WorkCarousel.vue';
 const props = defineProps({
   view: String
 })
-
-
-// const projects = ref([
-//   { caption: 'web development', poster: 'poster' },
-//   { caption: 'design', poster: 'poster' },
-//   { caption: 'big data', poster: 'poster' },
-// ])
 
 </script>

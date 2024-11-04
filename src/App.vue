@@ -29,4 +29,11 @@ const displayView = (view) => {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 1024px) {
+  main {
+    overflow: hidden;
+    max-height: 100vh;
+  }
+}
+</style>

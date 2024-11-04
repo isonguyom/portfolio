@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
     <Wrapper :activeView="view === 'blog'">
-        <div class="min-vh-100 py-5 px-3 px-sm-5 row justify-content-between align-items-center">
+        <div class="min-vh-100 py-5 px-3 px-sm-5 row justify-content-between align-items-center m-0">
             <PostSlider />
         </div>
     </Wrapper>
