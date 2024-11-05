@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <button :type="type" :aria-label="ariaLabel" class="btn btn-main fw-bold fs-5 p-0 d-flex align-items-center justify-content-center"
+    <button :type="type" :aria-label="ariaLabel"
+        class="btn btn-main fw-bold fs-5 p-0 d-flex text-capitalize align-items-center justify-content-center"
         role="button"><span class="py-2 ps-4 pe-2">{{ label }}</span> <span class="btn-icon py-2 px-4 fs-4 fw-bolder"><i
                 class="bi bi-arrow-right"></i></span></button>
 </template>
@@ -16,9 +17,9 @@ const props = defineProps({
     label: {
         type: String,
         required: true
-    }, 
+    },
 
-    ariaLabel: {
+    'aria-label': {
         type: String,
         default: "Button"
     }
@@ -28,19 +29,36 @@ const props = defineProps({
 
 <style scoped>
 .btn-main {
-    background-color: var(--main);
+    background: linear-gradient(45deg, #3aafa9 0%, #30928d 100%);
     color: var(--bg-body);
-    border: 3px solid var(--main) !important;
+    transition: all 0.5s ease;
 }
 
 .btn-icon {
-    background-color: var(--main);
-    border-bottom-left-radius: 100%;
-    color: var(--bg-body)
+    transition: all 0.5s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-main:hover {
+    background: linear-gradient(45deg, #30928d 0%, #3aafa9 100%);
+    box-shadow: 0px 4px 12px #3aafa9;
+    animation: pulse 1s infinite;
 }
 
 .btn-main:hover .btn-icon {
-    background-color: var(--bg-body);
-    color: var(--main);
+    transform: translateX(5px);
 }
 </style>

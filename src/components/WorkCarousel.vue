@@ -8,9 +8,8 @@
                 :class="{ active: index === 0 }"
                 :style="`background: url('images/${slide.image}.png') no-repeat; background-size: cover`">
                 <div class="card-img-overlay p-0 m-0 rounded-0 vh-100 w-100">
-                    <div
-                        class="text-box-wrapper py-5 px-3 px-sm-5 m-0 h-100 d-flex flex-column justify-content-center w-100">
-                        <div class="text-box px-md-4">
+                    <div class="text-box-wrapper p-0 px-md-4 m-0 h-100 d-flex flex-column justify-content-center w-100">
+                        <div class="text-box py-3 px-3 px-sm-5">
                             <p class="text-uppercase fw-light">{{ slide.categories }}</p>
                             <h1 class="text-uppercase slide-title">{{ slide.title }}</h1>
                             <div class="card-text text-opacity-75 mb-5">
@@ -58,11 +57,14 @@ const { works } = useWorksStore()
 
 .text-box-wrapper {
     max-width: 600px;
-    background-color: #3aafa9ef;
     color: var(--bg-body);
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
     cursor: default;
+}
+
+.text-box {
+    background-color: #3aafa9cb;
 }
 
 .slide-title {
@@ -106,7 +108,12 @@ const { works } = useWorksStore()
 }
 
 @media screen and (min-width: 768px) {
+    .text-box-wrapper {
+        background-color: #3aafa9e0;
+    }
+
     .text-box {
+        background-color: transparent;
         font-size: 1.3rem;
     }
 

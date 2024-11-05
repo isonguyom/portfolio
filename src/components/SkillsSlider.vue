@@ -3,9 +3,11 @@
         <div class="d-flex flex-column gap-3">
             <div v-for="(skill, index) in skills" :key="index" class="custom-carousel-item">
                 <button class="skill-name font-title w-100 rounded-3 fw-bolder text-uppercase text-start border-0 px-2"
-                    :class="{ 'text-white': index === currentIndex }" @click.prevent="toggleDesc(index)">{{ skill.name
-                    }}</button>
-                <div ref="descWrapper" class="mt-2 fs-6 desc" v-if="index === currentIndex">
+                    :class="{ 'text-white': index === currentIndex }" @click.prevent="toggleDesc(index)">
+                    {{ skill.name }}
+                </button>
+
+                <div :ref="el => (descWrappers[index] = el)" class="mt-2 fs-6 desc" v-show="index === currentIndex">
                     {{ skill.description }}
                 </div>
             </div>
@@ -14,39 +16,44 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, nextTick } from 'vue';
 import gsap from 'gsap';
 
-import { useSkillsStore } from '@/stores/skills'
+import { useSkillsStore } from '@/stores/skills';
 
-
-const { skills } = useSkillsStore()
-const currentIndex = ref(0)
-const descWrapper = ref(null)
+const { skills } = useSkillsStore();
+const currentIndex = ref(0); // Start with no item selected
+const descWrappers = ref([]); // Array to store refs for description divs
 
 const toggleDesc = (index) => {
-    if (index === currentIndex.value) {
-        return currentIndex.value = null
-    }
-    return currentIndex.value = index
-}
+    currentIndex.value = currentIndex.value === index ? null : index;
+};
 
-watch(
-    () => currentIndex.value,
-    (newVal) => {
-        if (newVal) {
-            // Animate the container in
-            gsap.from(descWrapper.value, {
-                duration: 2,
-                rotationX: 45,
-                scaleX: 0.5,
+watch(currentIndex, async (newIndex) => {
+    if (newIndex !== null) {
+        await nextTick(); // Wait for DOM updates
+        const descElement = descWrappers.value[newIndex];
+        const skillButton = descElement.previousElementSibling; // Reference to skill-name button
+
+        if (descElement) {
+            gsap.from(descElement, {
+                translateY: -45,
                 opacity: 0,
-                z: -300,
-                ease: "power3.out"
+                duration: 0.5,
+                ease: 'power1.in'
             });
         }
+
+        if (skillButton) {
+            gsap.fromTo(
+                skillButton,
+                { translateY: -5, scale: 1 },
+                { translateY: 0, duration: 0.3, ease: "bounce.out" }
+            );
+        }
     }
-);
+});
+
 </script>
 
 <style scoped>
@@ -54,6 +61,9 @@ watch(
     gap: 30px;
 }
 
+.custom-carousel-item {
+    transition: all 1s ease;
+}
 
 .skill-name {
     font-size: 2rem;
@@ -70,6 +80,7 @@ watch(
 .desc {
     transition: all 1s ease;
 }
+
 
 @media screen and (min-width: 768px) {
     .skill-name {

@@ -1,10 +1,10 @@
 <template>
     <li class="nav-item col m-0 p-0">
         <div class="card h-100 bg-white bg-opacity-50 text-white p-2 rounded border-0 shadow-sm w-100">
-            <img :src="`images/${props.navItem.name}.svg`" class="card-img h-100 rounded" alt="poster">
+            <img :src="`images/${navItem.name}.svg`" class="card-img h-100 rounded" alt="poster">
             <button class="btn w-100 h-100 card-img-overlay text-white font-title fs-4 text-capitalize fw-semibold"
-                @click="$emit('changeView', props.navItem.name)">
-                {{ props.navItem.name }}
+                @click="$emit('changeView', navItem.name)" :aria-label="`Navigate to ${navItem.name}`">
+                {{ navItem.name }}
             </button>
         </div>
     </li>
@@ -12,8 +12,7 @@
 
 
 <script setup>
-
-
+// eslint-disable-next-line no-unused-vars
 const props = defineProps({
     navItem: Object
 })
@@ -43,12 +42,33 @@ button {
 }
 
 .card:hover {
-    padding: 0 !important;
+    transform: scale(1.02);
 }
 
 .card:hover button {
     background: rgba(0, 0, 0, 0.863);
     color: var(--main) !important;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: var(--main);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+button:hover::before {
+    transform: translate(-50%, -50%) scale(10);
+    /* Adjust scale for sphere size */
+    opacity: 0.1;
+    /* Adjust for desired transparency */
 }
 
 @media screen and (min-width: 576px) {

@@ -4,7 +4,7 @@
     <div class="min-vh-100 py-5 px-3 px-sm-5 row justify-content-between w-100 m-0">
       <div class="mb-5 p-0 col-lg-4">
         <iframe class="rounded-circle"
-          src="https://lottie.host/embed/184c2758-4b91-4cb7-b793-d7949d7d1513/Lrc73ijiPs.json"></iframe>
+          src="https://lottie.host/embed/a0d40bba-0117-4363-9061-e40297bb8259/lcoBmjFglc.json"></iframe>
         <h1 class="fs-1 fw-bold title mb-2 mt-4">Contact Me</h1>
         <p class="m-0">
           I’m always open to new opportunities and collaborations, especially where tech meets the maritime industry.
@@ -35,7 +35,7 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <Button label="Submit" type="submit" ariaLabel="Submit Form" />
+            <Button label="Submit" type="submit" aria-label="Submit Form" />
           </div>
         </form>
       </div>
@@ -131,6 +131,6 @@ textarea:focus {
 }
 
 iframe {
-  background-color: rgba(255, 255, 255, 0.075);
+  background-color: rgba(255, 255, 255, 0.041);
 }
 </style>
