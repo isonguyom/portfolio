@@ -1,5 +1,5 @@
 <template>
-    <li class="nav-item col m-0 p-0">
+    <li class="nav-item col m-0 p-0" ref="card">
         <div class="card h-100 bg-white bg-opacity-50 text-white p-2 rounded border-0 shadow-sm w-100">
             <img :src="`images/${navItem.name}.svg`" class="card-img h-100 rounded" alt="poster">
             <button class="btn w-100 h-100 card-img-overlay text-white font-title fs-4 text-capitalize fw-semibold"
@@ -10,24 +10,50 @@
     </li>
 </template>
 
-
 <script setup>
+import { onMounted, onBeforeUnmount, ref } from 'vue';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
-    navItem: Object
-})
+    navItem: Object,
+});
 
 // eslint-disable-next-line no-unused-vars
-const emit = defineEmits(['changeView'])
+const emit = defineEmits(['changeView']);
+const card = ref(null);
 
+onMounted(() => {
+    // Set up the scroll-triggered animation
+    gsap.from(card.value, {
+        opacity: 0,
+        y: 100,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+            trigger: card.value,
+            start: 'top 100%', // Trigger animation when the top of the card is 90% from the top of the viewport
+            toggleActions: 'play none none reset', // Reset on exit, play on re-entry
+        },
+    });
 
+    // Refresh ScrollTrigger to ensure all in-view animations run on page load
+    // ScrollTrigger.refresh();
+});
+
+onBeforeUnmount(() => {
+    // Clean up ScrollTrigger instances on unmount
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+});
 </script>
 
 <style scoped>
 li {
     height: 220px;
 }
-
 
 .card {
     /* From https://css.glass */
@@ -66,9 +92,7 @@ button::before {
 
 button:hover::before {
     transform: translate(-50%, -50%) scale(10);
-    /* Adjust scale for sphere size */
     opacity: 0.1;
-    /* Adjust for desired transparency */
 }
 
 @media screen and (min-width: 576px) {
