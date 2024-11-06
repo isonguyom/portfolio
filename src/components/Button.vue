@@ -7,6 +7,12 @@
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
     type: {
@@ -25,6 +31,24 @@ const props = defineProps({
     }
 })
 
+const button = ref(null)
+
+onMounted(() => {
+    if (button.value) {
+        gsap.from(button.value, {
+            opacity: 0,
+            y: 50,
+            duration: 0.5,
+            delay: 0.5,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: button.value,
+                start: 'top 100%', // Trigger animation when the button is 80% from the top of the viewport
+                toggleActions: 'play none none reset',
+            },
+        });
+    }
+})
 </script>
 
 

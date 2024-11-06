@@ -1,7 +1,8 @@
 <template>
     <div class="carousel-wrapper card bg-transparent border-0 w-100 d-flex justify-content-center">
         <div class="d-flex flex-column gap-3">
-            <div v-for="(skill, index) in skills" :key="index" class="custom-carousel-item">
+            <div v-for="(skill, index) in skills" :key="index" class="custom-carousel-item"
+                :ref="el => (collapseItems[index] = el)">
                 <button class="skill-name font-title w-100 rounded-3 fw-bolder text-uppercase text-start border-0 px-2"
                     :class="{ 'text-white': index === currentIndex }" @click.prevent="toggleDesc(index)">
                     {{ skill.name }}
@@ -16,14 +17,18 @@
 </template>
 
 <script setup>
-import { ref, watch, nextTick } from 'vue';
+import { ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 import { useSkillsStore } from '@/stores/skills';
 
 const { skills } = useSkillsStore();
-const currentIndex = ref(0); // Start with no item selected
-const descWrappers = ref([]); // Array to store refs for description divs
+const currentIndex = ref(0);
+const descWrappers = ref([]);
+const collapseItems = ref([]); // Array to store refs for entire items
 
 const toggleDesc = (index) => {
     currentIndex.value = currentIndex.value === index ? null : index;
@@ -31,9 +36,9 @@ const toggleDesc = (index) => {
 
 watch(currentIndex, async (newIndex) => {
     if (newIndex !== null) {
-        await nextTick(); // Wait for DOM updates
+        await nextTick();
         const descElement = descWrappers.value[newIndex];
-        const skillButton = descElement.previousElementSibling; // Reference to skill-name button
+        const skillButton = descElement.previousElementSibling;
 
         if (descElement) {
             gsap.from(descElement, {
@@ -52,6 +57,33 @@ watch(currentIndex, async (newIndex) => {
             );
         }
     }
+});
+
+onMounted(async () => {
+    await nextTick(); // Ensure all DOM elements are rendered
+    // Set up scroll-triggered animations for each `custom-carousel-item`
+    collapseItems.value.forEach((item, index) => {
+        if (item) {
+            gsap.from(item, {
+                opacity: 0,
+                y: 50,
+                duration: 0.5,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 90%', // Adjust as needed
+                    end: 'bottom 60%', // New end value to test
+                    toggleActions: 'play none none reset',
+                }
+            });
+        } else {
+            console.warn(`Item ${index} is not defined`); // Debugging: Check for missing elements
+        }
+    });
+});
+
+onBeforeUnmount(() => {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 });
 
 </script>
@@ -80,7 +112,6 @@ watch(currentIndex, async (newIndex) => {
 .desc {
     transition: all 1s ease;
 }
-
 
 @media screen and (min-width: 768px) {
     .skill-name {

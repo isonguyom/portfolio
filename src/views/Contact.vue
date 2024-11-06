@@ -34,7 +34,7 @@
             <textarea id="message" rows="4" v-model="formData.message" required aria-label="Your Message"></textarea>
           </div>
 
-          <div class="d-flex justify-content-end">
+          <div class="d-flex justify-content-end submit-btn-wrapper">
             <Button label="Submit" type="submit" aria-label="Submit Form" />
           </div>
         </form>
@@ -44,11 +44,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import emailjs from 'emailjs-com';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Wrapper from '@/components/Wrapper.vue';
 import Button from '@/components/Button.vue';
+
+gsap.registerPlugin(ScrollTrigger);
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -92,7 +96,27 @@ const submitForm = () => {
     );
 };
 
+onMounted(() => {
+  // ScrollTrigger setup for form groups
+  const formGroups = document.querySelectorAll('.form-group');
 
+  formGroups.forEach((formGroup, index) => {
+    gsap.from(formGroup, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      delay: index * 0.2, // Staggered animation for each form group
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: formGroup,
+        start: 'top 80%', // Trigger animation when form group is 80% from the top of the viewport
+        toggleActions: 'play none none reset',
+      },
+    });
+  });
+
+
+});
 </script>
 
 <style scoped>

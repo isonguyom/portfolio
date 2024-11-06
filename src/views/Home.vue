@@ -31,6 +31,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Wrapper from '@/components/Wrapper.vue';
 import NavCard from '@/components/NavCard.vue';
@@ -38,6 +39,8 @@ import Button from '@/components/Button.vue';
 
 import { useProfilesStore } from '@/stores/profiles';
 import { useNavStore } from '@/stores/nav';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const heading1 = ref(null);
 const heading2 = ref(null);
@@ -74,6 +77,11 @@ onMounted(() => {
             duration: 1,
             delay,
             ease: 'power3.out',
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 100%', // Trigger animation when form group is 80% from the top of the viewport
+                toggleActions: 'play none none reset',
+            },
         });
     });
 });

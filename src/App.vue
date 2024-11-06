@@ -16,6 +16,7 @@ const displayView = (view) => {
   activeView.value = view
 };
 
+
 </script>
 
 <template>

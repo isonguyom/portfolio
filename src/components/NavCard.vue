@@ -35,13 +35,10 @@ onMounted(() => {
         ease: 'power3.out',
         scrollTrigger: {
             trigger: card.value,
-            start: 'top 100%', // Trigger animation when the top of the card is 90% from the top of the viewport
+            start: 'top 90%', // Trigger animation when the top of the card is 90% from the top of the viewport
             toggleActions: 'play none none reset', // Reset on exit, play on re-entry
         },
     });
-
-    // Refresh ScrollTrigger to ensure all in-view animations run on page load
-    // ScrollTrigger.refresh();
 });
 
 onBeforeUnmount(() => {
