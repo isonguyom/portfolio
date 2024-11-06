@@ -71,6 +71,7 @@ onMounted(async () => {
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: item,
+                    delay: index * 0.2,
                     start: 'top 90%', // Adjust as needed
                     end: 'bottom 60%', // New end value to test
                     toggleActions: 'play none none reset',
