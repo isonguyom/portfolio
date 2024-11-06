@@ -16,17 +16,20 @@
         <form @submit.prevent="submitForm">
           <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" id="name" v-model="formData.name" required class="input-style" aria-label="Your Name">
+            <input type="text" id="name" v-model="formData.name" required class="input-style" aria-label="Your Name"
+              autocomplete='true'>
           </div>
 
           <div class="form-group">
             <label for="email">Email:</label>
-            <input type="email" id="email" v-model="formData.email" required aria-label="Your Email">
+            <input type="email" id="email" v-model="formData.email" required aria-label="Your Email"
+              autocomplete='true'>
           </div>
 
           <div class="form-group">
             <label for="subject">Subject:</label>
-            <input type="text" id="subject" v-model="formData.subject" required aria-label="Subject of Your Message">
+            <input type="text" id="subject" v-model="formData.subject" required aria-label="Subject of Your Message"
+              autocomplete='true'>
           </div>
 
           <div class="form-group">
